@@ -1,0 +1,20 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/tictactoe}
+    username: ${DB_USER:tictactoe}
+    password: ${DB_PASSWORD:tictactoe}
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: update   # MVP: Schema wird automatisch angelegt. Später: Flyway.
+
+app:
+  jwt:
+    # Mindestens 32 Zeichen. In Produktion IMMER per Umgebungsvariable setzen!
+    secret: ${JWT_SECRET:dev-only-secret-change-me-before-deploying-1234}
+    expiration-ms: 86400000   # 24 h
+  cors:
+    allowed-origin: ${CORS_ORIGIN:http://localhost:4200}
