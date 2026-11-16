@@ -39,11 +39,11 @@ const LINES = [
                   (click)="play($index)">
             @if (cell === 'X') {
               <svg viewBox="0 0 100 100" class="mark x" aria-hidden="true">
-                <path d="M22 22 L78 78" /><path d="M78 22 L22 78" />
+                <path d="M22 22 L78 78" pathLength="100" /><path d="M78 22 L22 78" pathLength="100" />
               </svg>
             } @else if (cell === 'O') {
               <svg viewBox="0 0 100 100" class="mark o" aria-hidden="true">
-                <circle cx="50" cy="50" r="30" />
+                <circle cx="50" cy="50" r="30" pathLength="100" transform="rotate(-90 50 50)" />
               </svg>
             }
           </button>
