@@ -54,6 +54,7 @@ main { padding: 2rem 1rem 4rem; display: flex; justify-content: center; }
   box-shadow: 6px 6px 0 var(--graphite);
 }
 .panel.narrow { max-width: 420px; }
+.panel.game { box-shadow: none; }
 
 /* ---------- Formulare & Buttons ---------- */
 form { display: grid; gap: 1rem; margin-bottom: 1rem; }
@@ -79,15 +80,17 @@ button.link { background: none; border: 0; padding: 0; color: var(--ink); text-d
 .legend.o { color: var(--marker); }
 
 .board {
-  --size: min(100%, 360px);
-  display: grid; grid-template-columns: repeat(3, 1fr);
-  width: var(--size); aspect-ratio: 1; margin: 1.25rem auto 0;
+  /* Feste Feldgröße: minmax(0, 1fr) verhindert, dass der Inhalt die Spalten/Zeilen aufweitet */
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-rows: repeat(3, minmax(0, 1fr));
+  width: min(100%, 360px); aspect-ratio: 1; margin: 1.25rem auto 0;
 }
 .cell {
+  position: relative; min-width: 0; min-height: 0;
   background: transparent; border: 0; padding: 0;
   border-right: 4px solid var(--graphite);
   border-bottom: 4px solid var(--graphite);
-  display: grid; place-items: center;
 }
 .cell:nth-child(3n) { border-right: 0; }
 .cell:nth-child(n + 7) { border-bottom: 0; }
@@ -95,7 +98,10 @@ button.link { background: none; border: 0; padding: 0; color: var(--ink); text-d
 .cell:disabled { cursor: default; }
 .cell.win { background: var(--highlight); }
 
-.mark { width: 72%; height: 72%; fill: none; stroke-width: 9; stroke-linecap: round; }
+.mark {
+  position: absolute; left: 14%; top: 14%; width: 72%; height: 72%;
+  fill: none; stroke-width: 9; stroke-linecap: round;
+}
 .mark.x { stroke: var(--ink); }
 .mark.o { stroke: var(--marker); }
 /* Das Zeichnen des Symbols reagiert auf den Klick */
@@ -117,3 +123,19 @@ th, td { padding: .6rem .5rem; text-align: left; border-bottom: 1px solid var(--
 th { border-bottom: 2px solid var(--graphite); }
 .num { text-align: right; font-variant-numeric: tabular-nums; }
 tr.me td { background: var(--highlight); font-weight: 700; }
+
+/* ---------- Spielverlauf ---------- */
+.history { list-style: none; margin: 0; padding: 0; }
+.history li { display: flex; align-items: center; gap: 1rem; padding: .7rem 0; border-bottom: 1px solid var(--grid); }
+.mini {
+  display: grid; grid-template-columns: repeat(3, 1.6rem); grid-template-rows: repeat(3, 1.6rem);
+  gap: 1px; background: var(--graphite); border: 2px solid var(--graphite); flex: none;
+}
+.mini .c { background: var(--card); display: grid; place-items: center; font-weight: 800; font-size: .85rem; line-height: 1; }
+.mini .c.x { color: var(--ink); }
+.mini .c.o { color: var(--marker); }
+.meta { display: grid; gap: .1rem; }
+.meta .muted { margin: 0; font-size: .85rem; }
+.res-win { color: #0b7a3b; }
+.res-loss { color: var(--marker); }
+.res-draw { color: var(--muted); }

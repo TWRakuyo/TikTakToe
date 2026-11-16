@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { GameResponse, LeaderboardEntry, Stats } from './models';
+import { GameResponse, HistoryEntry, LeaderboardEntry, Stats } from './models';
 
 @Injectable({ providedIn: 'root' })
 export class ApiService {
@@ -12,6 +12,10 @@ export class ApiService {
 
   submitGame(moves: number[]) {
     return this.http.post<GameResponse>('/api/games', { moves });
+  }
+
+  history() {
+    return this.http.get<HistoryEntry[]>('/api/games/history');
   }
 
   leaderboard() {

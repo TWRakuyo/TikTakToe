@@ -15,6 +15,7 @@ Monorepo mit Angular-Frontend, Spring-Boot-Backend und PostgreSQL (Docker).
 - Registrierung und Login (JWT, Passwörter mit BCrypt)
 - Lokales Spiel auf einem Gerät: angemeldeter Spieler (X, beginnt) gegen Gast (O)
 - Globale Bestenliste: gewonnene Spiele und längste Gewinnserie
+- Spielverlauf pro Spieler: letzte 50 Spiele mit Ergebnis, Zugzahl, Zeitpunkt und Endstellung
 - Ergebnisse werden serverseitig geprüft: Das Frontend schickt die Zugfolge, das Backend spielt sie nach
 
 Regeln für die Serie: Ein Sieg erhöht die aktuelle Serie, Niederlage und Unentschieden setzen sie auf 0 zurück.
@@ -63,7 +64,8 @@ Das Frontend leitet `/api/*` im Dev-Modus per `proxy.conf.json` an `localhost:80
 | POST    | `/api/auth/login`       | nein | `{username, password}` → `{token, username}`  |
 | GET     | `/api/leaderboard`      | nein | Top 50 nach Siegen, dann längster Serie       |
 | GET     | `/api/users/me/stats`   | ja   | Eigene Statistik                              |
-| POST    | `/api/games`            | ja   | `{moves: [0..8]}` → Ergebnis und neue Statistik |
+| POST    | `/api/games`            | ja   | `{moves: [0..8]}` → Ergebnis und neue Statistik (Spiel wird im Verlauf gespeichert) |
+| GET     | `/api/games/history`    | ja   | Letzte 50 Spiele des Spielers, neueste zuerst |
 
 ## Tests
 

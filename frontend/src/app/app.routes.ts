@@ -9,6 +9,12 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/game/game.component').then(m => m.GameComponent),
   },
   {
+    path: 'history',
+    canActivate: [authGuard],
+    loadComponent: () =>
+      import('./pages/history/history.component').then(m => m.HistoryComponent),
+  },
+  {
     path: 'leaderboard',
     loadComponent: () =>
       import('./pages/leaderboard/leaderboard.component').then(m => m.LeaderboardComponent),

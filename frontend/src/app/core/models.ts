@@ -24,3 +24,10 @@ export interface LeaderboardEntry {
   wins: number;
   longestStreak: number;
 }
+
+export interface HistoryEntry {
+  id: number;
+  result: GameResult;
+  moves: number[];
+  playedAt: string;
+}

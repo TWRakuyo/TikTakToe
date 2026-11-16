@@ -11,6 +11,9 @@ import { AuthService } from './core/auth.service';
       <a class="brand" routerLink="/game">Drei gewinnt</a>
       <nav>
         <a routerLink="/game" routerLinkActive="active">Spielen</a>
+        @if (auth.isLoggedIn()) {
+          <a routerLink="/history" routerLinkActive="active">Verlauf</a>
+        }
         <a routerLink="/leaderboard" routerLinkActive="active">Bestenliste</a>
       </nav>
       <div class="account">
